@@ -1,6 +1,6 @@
 package com.lachguer.pfabck.repository;
 
-import com.lachguer.pfabck.dto.UserDto;
+import com.lachguer.pfabck.ws.dto.UserDto;
 import com.lachguer.pfabck.model.Role;
 import com.lachguer.pfabck.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean usernameExists(@Param("username") String username);
 
     // Trouve un utilisateur par son ID avec projection partielle (optionnel)
-    @Query("SELECT new com.lachguer.pfabck.dto.UserDto(u.id, u.username, u.role) FROM User u WHERE u.id = :id")
+    @Query("SELECT new com.lachguer.pfabck.ws.dto.UserDto(u.id, u.username, u.role) FROM User u WHERE u.id = :id")
     Optional<UserDto> findUserDtoById(@Param("id") Long id);
 
     // Vérifie si un utilisateur a un rôle spécifique (optionnel)

@@ -1,4 +1,4 @@
-package com.lachguer.pfabck.dto;
+package com.lachguer.pfabck.ws.dto;
 
 import com.lachguer.pfabck.model.Role;
 import lombok.Data;

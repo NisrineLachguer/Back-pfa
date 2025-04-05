@@ -1,12 +1,11 @@
-package com.lachguer.pfabck.controller;
+package com.lachguer.pfabck.ws.controller;
 
-import com.lachguer.pfabck.dto.*;
 import com.lachguer.pfabck.model.Role;
 import com.lachguer.pfabck.model.User;
 import com.lachguer.pfabck.repository.UserRepository;
 import com.lachguer.pfabck.security.JwtTokenProvider;
 import com.lachguer.pfabck.service.AuthService;
-import jakarta.annotation.PostConstruct;
+import com.lachguer.pfabck.ws.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

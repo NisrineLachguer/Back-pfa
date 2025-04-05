@@ -1,4 +1,4 @@
-package com.lachguer.pfabck.dto;
+package com.lachguer.pfabck.ws.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
