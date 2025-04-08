@@ -15,9 +15,31 @@ public class UserDto {
 
     private Role role; // ADMIN, RECRUITER, CANDIDATE etc.
 
+    private String telephone;
+    private String adresse;
+
+
     public UserDto() {
 
     }
+
+    // Getters et Setters
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
 
     public UserDto(Long id, String email, Role role) {
         this.id = id;
