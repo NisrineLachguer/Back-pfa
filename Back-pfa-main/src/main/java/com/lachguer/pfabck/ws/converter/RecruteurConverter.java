@@ -16,7 +16,6 @@ public class RecruteurConverter {
             return null;
         } else {
             RecruteurDto dto = new RecruteurDto(recruteur.getId(), recruteur.getEmail(), recruteur.getRole());
-            dto.setEntreprise(recruteur.getEntreprise());
             return dto;
         }
     }
@@ -30,7 +29,6 @@ public class RecruteurConverter {
             recruteur.setId(dto.getId());
             recruteur.setEmail(dto.getEmail());
             recruteur.setRole(dto.getRole());
-            recruteur.setEntreprise(dto.getEntreprise());
             return recruteur;
         }
     }

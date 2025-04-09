@@ -1,6 +1,7 @@
 package com.lachguer.pfabck.ws.converter;
 
 import com.lachguer.pfabck.model.Offre;
+import com.lachguer.pfabck.model.User;
 import com.lachguer.pfabck.ws.dto.OffreDto;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +16,16 @@ public class OffreConverter {
 
         OffreDto dto = new OffreDto();
         dto.setId(offre.getId());
-        dto.setTitre(offre.getTitre());
+        dto.setTypeOffre(offre.getTypeOffre());
+        dto.setDureeMois(offre.getDureeMois());
+        dto.setPosteTitre(offre.getPosteTitre());
         dto.setDescription(offre.getDescription());
+        dto.setLocalisation(offre.getLocalisation());
+        dto.setDateDebut(offre.getDateDebut());
         dto.setDatePublication(offre.getDatePublication());
-        dto.setRecruteur(offre.getRecruteur()); // Peut être converti aussi en DTO si besoin
+        dto.setSecteurActivite(offre.getSecteurActivite());
+        dto.setNomEntreprise(offre.getNomEntreprise());
+        dto.setStatus(offre.getStatus());
         return dto;
     }
 
@@ -27,10 +34,22 @@ public class OffreConverter {
 
         Offre offre = new Offre();
         offre.setId(dto.getId());
-        offre.setTitre(dto.getTitre());
+        offre.setId(dto.getId());
+        offre.setTypeOffre(dto.getTypeOffre());
+        offre.setDureeMois(dto.getDureeMois());
+        offre.setPosteTitre(dto.getPosteTitre());
         offre.setDescription(dto.getDescription());
+        offre.setLocalisation(dto.getLocalisation());
+        offre.setDateDebut(dto.getDateDebut());
         offre.setDatePublication(dto.getDatePublication());
-        offre.setRecruteur(dto.getRecruteur()); // Doit être un objet complet (assure-toi qu’il est bien chargé)
+        offre.setSecteurActivite(dto.getSecteurActivite());
+        offre.setNomEntreprise(dto.getNomEntreprise());
+        offre.setStatus(dto.getStatus());
+        if (dto.getRecruteurId() != null) {
+            User recruteur = new User();
+            recruteur.setId(dto.getRecruteurId());
+            offre.setRecruteur(recruteur);
+        }
         return offre;
     }
 

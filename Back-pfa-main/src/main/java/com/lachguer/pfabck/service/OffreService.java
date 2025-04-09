@@ -14,14 +14,17 @@ public class OffreService {
     private OffreRepository offreRepository;
 
     public Offre save(Offre offre) {
+
         return offreRepository.save(offre);
     }
 
     public Offre findById(Long id) {
+
         return offreRepository.findById(id).orElse(null);
     }
 
     public List<Offre> findAll() {
+
         return offreRepository.findAll();
     }
 
@@ -37,4 +40,27 @@ public class OffreService {
             offreRepository.deleteById(id);
         }
     }
+
+    public List<Offre> findActiveOffres() {
+        return offreRepository.findByStatus("active");
+    }
+
+    public List<Offre> findBySecteurActivite(String secteurActivite) {
+        return offreRepository.findBySecteurActivite(secteurActivite);
+    }
+
+
+    public Offre updateStatus(Long id, String status) {
+        Offre offre = offreRepository.findById(id).orElse(null);
+        if (offre != null) {
+            offre.setStatus(status);
+            return offreRepository.save(offre);
+        }
+        return null;
+    }
+
+    public List<Offre> findByRecruteurId(Long recruteurId) {
+        return offreRepository.findByRecruteurId(recruteurId);
+    }
+
 }

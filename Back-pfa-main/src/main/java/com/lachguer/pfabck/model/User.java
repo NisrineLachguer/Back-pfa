@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users") // "users" pour éviter le mot-clé SQL "user"
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id

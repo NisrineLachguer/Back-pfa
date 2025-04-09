@@ -35,6 +35,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("roles", authorities)
+                //.claim("roles", "ROLE_" + authorities) // Ou ajustez selon votre configuration Spring
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
                 .signWith(getSigningKey())

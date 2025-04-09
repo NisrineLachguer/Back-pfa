@@ -46,7 +46,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
+                        //.requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
+                        //.requestMatchers("/api/v1/offres/recruteur/**").hasRole("RECRUITER") // Remplacer permitAll()                        .requestMatchers("/api/v1/offres/**").authenticated() // Spécifiez explicitement
+                        .requestMatchers("/api/recruiter/**").permitAll()
+                        .requestMatchers("/api/v1/recruiter/offres/**").permitAll()
+                        .requestMatchers("/api/v1/offres/candidat").permitAll()  //.hasRole("CANDIDATE")
                         .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                         .anyRequest().authenticated()
                 );
@@ -62,6 +66,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
