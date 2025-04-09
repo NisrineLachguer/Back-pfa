@@ -15,7 +15,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "users") // "users" pour éviter le mot-clé SQL "user"
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User implements UserDetails {
 
     @Id
@@ -33,6 +34,25 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN, RECRUITER, CANDIDATE etc.
+
+    private String telephone;  // Nouveau champ
+    private String adresse;    // Nouveau champ
+
+    // Getters et setters
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;}
 
 
 
@@ -62,8 +82,19 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
     public String getUsername() {
-        return this.email;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

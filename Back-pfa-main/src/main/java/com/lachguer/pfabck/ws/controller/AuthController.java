@@ -113,7 +113,7 @@ public class AuthController {
 
             return ResponseEntity.ok(new UserDto(
                     user.getId(),
-                    user.getUsername(),
+                    user.getEmail(),
                     user.getRole()
             ));
         } catch (Exception e) {
