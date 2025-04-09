@@ -50,10 +50,12 @@ public class SecurityConfig {
                         //.requestMatchers("/api/v1/offres/recruteur/**").hasRole("RECRUITER") // Remplacer permitAll()                        .requestMatchers("/api/v1/offres/**").authenticated() // Spécifiez explicitement
                         .requestMatchers("/api/recruiter/**").permitAll()
                         .requestMatchers("/api/v1/recruiter/offres/**").permitAll()
+                        .requestMatchers("/api/v1/offres/**").permitAll()
                         .requestMatchers("/api/v1/offres/candidat").permitAll()  //.hasRole("CANDIDATE")
                         //.requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
-                        .requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
+                        .requestMatchers("/api/recruiter/**").permitAll()
                         .requestMatchers("/api/candidate/**").permitAll()
+                        .requestMatchers("/api/v1/offres").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
                         .anyRequest().authenticated()
                 );
