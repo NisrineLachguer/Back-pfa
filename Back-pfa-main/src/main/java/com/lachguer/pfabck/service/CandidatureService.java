@@ -1,10 +1,14 @@
 package com.lachguer.pfabck.service;
 
+import com.lachguer.pfabck.model.Candidat;
 import com.lachguer.pfabck.model.Candidature;
+import com.lachguer.pfabck.model.Offre;
 import com.lachguer.pfabck.repository.CandidatureRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -12,6 +16,10 @@ public class CandidatureService {
 
     @Autowired
     private CandidatureRepository candidatureRepository;
+    @Autowired
+    private OffreService offreService;
+    @Autowired
+    private CandidatService candidatService;
 
     // Ajouter une candidature
     public Candidature save(Candidature candidature) {
@@ -42,4 +50,10 @@ public class CandidatureService {
             candidatureRepository.deleteById(id);
         }
     }
+    public boolean hasAlreadyApplied(Long candidatId, Long offreId) {
+        // Recherche si une candidature existe déjà pour ce candidat et cette offre
+        return candidatureRepository.existsByCandidatIdAndOffreId(candidatId, offreId);
+    }
+
+
 }

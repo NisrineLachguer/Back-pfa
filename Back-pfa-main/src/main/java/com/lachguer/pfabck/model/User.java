@@ -32,6 +32,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    // Ajoutez ces champs s'ils n'existent pas
+    @Column(name = "nom")
+    private String nom;
+
+    @Column(name = "prenom")
+    private String prenom;
+
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN, RECRUITER, CANDIDATE etc.
 
@@ -54,6 +61,36 @@ public class User implements UserDetails {
     public void setAdresse(String adresse) {
         this.adresse = adresse;}
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 
     // Implémentation des méthodes de UserDetails
@@ -82,19 +119,5 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
