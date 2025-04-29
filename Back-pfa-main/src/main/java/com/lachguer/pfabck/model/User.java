@@ -52,8 +52,9 @@ public class User implements UserDetails {
     }
 
     public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
+        this.adresse = adresse;}
+
+
 
     // Implémentation des méthodes de UserDetails
     @Override
