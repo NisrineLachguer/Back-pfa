@@ -46,20 +46,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        //.requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
-                        //.requestMatchers("/api/v1/offres/recruteur/**").hasRole("RECRUITER") // Remplacer permitAll()                        .requestMatchers("/api/v1/offres/**").authenticated() // Spécifiez explicitement
-                        .requestMatchers("/api/recruiter/**").permitAll()
-                        .requestMatchers("/api/v1/recruiter/offres/**").permitAll()
-                        .requestMatchers("/api/v1/offres/candidat").permitAll()  //.hasRole("CANDIDATE")
-                        //.requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                         .requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
-                        .requestMatchers("/api/candidate/**").permitAll()
-                        .requestMatchers("/api/users/**").permitAll()
+                        //.requestMatchers("/api/v1/offres/recruteur/**").hasRole("RECRUITER")
+                        .requestMatchers("/api/v1/offres/recruteur/**").permitAll()
+                        .requestMatchers("/api/v1/offres/**").permitAll()
+                        .requestMatchers("/api/v1/offres/candidat/**").hasRole("CANDIDATE")
+                        .requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
+                        .requestMatchers("/api/users/**").authenticated()
                         .anyRequest().authenticated()
                 );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 

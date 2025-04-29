@@ -46,8 +46,6 @@ public class OffreDto {
     public void setDatePublication(Date datePublication) { this.datePublication = datePublication; }
     public String getSecteurActivite() { return secteurActivite; }
     public void setSecteurActivite(String secteurActivite) { this.secteurActivite = secteurActivite; }
-
-    // Nouveaux getters et setters
     public String getNomEntreprise() { return nomEntreprise; }
     public void setNomEntreprise(String nomEntreprise) { this.nomEntreprise = nomEntreprise; }
     public String getStatus() { return status; }

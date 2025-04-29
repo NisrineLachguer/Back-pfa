@@ -18,31 +18,26 @@ public class CandidatureController {
     @Autowired
     private CandidatureConverter candidatureConverter;
 
-    // Récupérer une candidature par ID
     @GetMapping("/{id}")
     public CandidatureDto getCandidatureById(@PathVariable Long id) {
         return candidatureConverter.toDto(candidatureService.findById(id));
     }
 
-    // Récupérer toutes les candidatures
     @GetMapping("/")
     public List<CandidatureDto> getAllCandidatures() {
         return candidatureConverter.toDtos(candidatureService.findAll());
     }
 
-    // Ajouter une nouvelle candidature
     @PostMapping("/")
     public CandidatureDto saveCandidature(@RequestBody CandidatureDto candidatureDto) {
         return candidatureConverter.toDto(candidatureService.save(candidatureConverter.toItem(candidatureDto)));
     }
 
-    // Mettre à jour une candidature
     @PutMapping("/")
     public CandidatureDto updateCandidature(@RequestBody CandidatureDto candidatureDto) {
         return candidatureConverter.toDto(candidatureService.update(candidatureConverter.toItem(candidatureDto)));
     }
 
-    // Supprimer une candidature
     @DeleteMapping("/{id}")
     public void deleteCandidature(@PathVariable Long id) {
         candidatureService.delete(id);

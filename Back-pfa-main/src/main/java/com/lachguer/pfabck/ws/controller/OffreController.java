@@ -38,7 +38,7 @@ public class OffreController {
 
     @PutMapping("/{id}")
     public OffreDto updateOffre(@PathVariable Long id, @RequestBody OffreDto dto) {
-        dto.setId(id); // Assurer que l'ID est défini correctement
+        dto.setId(id);
         return offreConverter.toDto(offreService.update(offreConverter.toItem(dto)));
     }
 

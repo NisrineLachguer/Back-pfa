@@ -20,13 +20,11 @@ public class CandidatService {
     @Autowired
     private UserRepository userRepository;
 
-    // Ajouter un nouveau candidat
     public Candidat save(Candidat candidat) {
         logger.info("Saving candidat with email: {}", candidat.getEmail());
         return candidatRepository.save(candidat);
     }
 
-    // Trouver un candidat par son email
     public Candidat findByEmail(String email) {
         logger.info("Finding candidat by email: {}", email);
         Candidat candidat = candidatRepository.findByEmail(email);
@@ -36,7 +34,6 @@ public class CandidatService {
         return candidat;
     }
 
-    // Trouver un candidat par son ID
     public Candidat findById(Long id) {
         logger.info("Finding candidat by id: {}", id);
         Candidat candidat = candidatRepository.findById(id).orElse(null);
@@ -48,7 +45,6 @@ public class CandidatService {
         return candidat;
     }
 
-    // Récupérer tous les candidats
     public List<Candidat> findAll() {
         logger.info("Finding all candidats");
         List<Candidat> candidats = candidatRepository.findAll();
@@ -56,7 +52,6 @@ public class CandidatService {
         return candidats;
     }
 
-    // Mettre à jour un candidat
     public Candidat updateProfile(Long id, Candidat candidatDetails) {
         logger.info("Updating candidat with id: {}", id);
         Candidat existingCandidat = candidatRepository.findById(id)
@@ -79,7 +74,6 @@ public class CandidatService {
         return updated;
     }
 
-    // Supprimer un candidat par son ID
     public void delete(Long id) {
         logger.info("Deleting candidat with id: {}", id);
         candidatRepository.deleteById(id);
