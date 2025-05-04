@@ -97,4 +97,10 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setNom(String nom) {
+    }
+
+    public void setPrenom(String prenom) {
+    }
 }

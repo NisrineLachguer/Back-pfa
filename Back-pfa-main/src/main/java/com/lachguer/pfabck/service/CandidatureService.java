@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidatureService {
@@ -56,4 +57,17 @@ public class CandidatureService {
     }
 
 
+    public List<Candidature> findByRecruteurId(Long recruteurId) {
+        return candidatureRepository.findByRecruteurIdWithDetails(recruteurId);
+    }
+
+    @Transactional
+    public Candidature updateStatus(Long id, String newStatus) {
+        Candidature candidature = findById(id);
+        if (candidature != null && Candidature.isValidStatus(newStatus)) {
+            candidature.setStatut(newStatus);
+            return candidatureRepository.save(candidature);
+        }
+        return null;
+    }
 }

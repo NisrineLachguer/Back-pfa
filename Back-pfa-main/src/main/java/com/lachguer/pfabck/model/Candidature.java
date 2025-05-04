@@ -150,4 +150,15 @@ public class Candidature {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    // ... (code existant) ...
+
+    // Ajoutez cette méthode pour valider les statuts
+    public static boolean isValidStatus(String status) {
+        if (status == null) return false;
+        String lowerStatus = status.toLowerCase();
+        return lowerStatus.equals("en attente") ||
+                lowerStatus.equals("accepté") ||
+                lowerStatus.equals("refusé");
+    }
 }

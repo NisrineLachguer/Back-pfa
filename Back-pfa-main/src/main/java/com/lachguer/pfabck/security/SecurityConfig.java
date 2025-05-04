@@ -2,6 +2,7 @@ package com.lachguer.pfabck.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -47,9 +48,17 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         //.requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
-                        //.requestMatchers("/api/v1/offres/recruteur/**").hasRole("RECRUITER") // Remplacer permitAll()                        .requestMatchers("/api/v1/offres/**").authenticated() // Spécifiez explicitement
+
+                        .requestMatchers("/api/v1/offres/recruteur/**").permitAll() // Remplacer permitAll()                        .requestMatchers("/api/v1/offres/**").authenticated() // Spécifiez explicitement
                         .requestMatchers("/api/recruiter/**").permitAll()
                         .requestMatchers("/api/v1/recruiter/offres/**").permitAll()
+                        .requestMatchers("/api/v1/offres/recruteur/**").permitAll()
+                        .requestMatchers("/api/v1/offres/recruteur/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/candidatures/*/status").permitAll()
+                        .requestMatchers("/api/v1/offres/**").permitAll()
+                        .requestMatchers("/api/v1/candidatures/recruteur/**").permitAll()
+                        .requestMatchers("/api/v1/candidatures/**").permitAll()
+                        .requestMatchers("/api/candidature/apply/**").permitAll()
                         .requestMatchers("/api/v1/offres/candidat").permitAll()  //.hasRole("CANDIDATE")
                         //.requestMatchers("/api/candidate/**").hasRole("CANDIDATE")
                         .requestMatchers("/api/recruiter/**").hasRole("RECRUITER")
@@ -67,9 +76,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        // Ajouter PATCH à la liste des méthodes autorisées
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(List.of("*")); // Vous pouvez garder cette ligne
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
