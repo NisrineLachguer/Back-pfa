@@ -130,6 +130,58 @@ public class CandidatureController {
         }
     }
 
+//    @GetMapping("/candidate/{candidateId}")
+//    public ResponseEntity<List<CandidatureDto>> getCandidaturesByCandidat(@PathVariable Long candidatId) {
+//        List<Candidature> candidatures = candidatureService.findByCandidatId(candidatId);
+//
+//        // Chargement des relations pour éviter le lazy loading
+//        candidatures.forEach(c -> {
+//            c.getOffre(); // Force le chargement de l'offre
+//        });
+//
+//        return ResponseEntity.ok(candidatureConverter.toDtos(candidatures));
+//    }
+
+    @GetMapping("/candidate/{candidatId}")
+    public ResponseEntity<List<CandidatureDto>> getCandidaturesByCandidat(@PathVariable Long candidatId) {
+        List<Candidature> candidatures = candidatureService.findDetailedCandidaturesByCandidat(candidatId);
+
+        // Assurez-vous que les DTOs contiennent toutes les informations nécessaires
+        List<CandidatureDto> candidatureDtos = candidatureConverter.toDtos(candidatures);
+
+        // Enrichir les DTOs avec des informations supplémentaires si nécessaire
+        for (int i = 0; i < candidatures.size(); i++) {
+            Candidature c = candidatures.get(i);
+            CandidatureDto dto = candidatureDtos.get(i);
+
+            // Ajouter les détails de l'offre au DTO
+            if (c.getOffre() != null) {
+                dto.setOffreTitre(c.getOffre().getPosteTitre());
+                dto.setLocalisation(c.getOffre().getLocalisation());  // Ajouter la localisation
+                dto.setNomEntreprise(c.getOffre().getNomEntreprise());
+                // Ajouter d'autres champs de l'offre si nécessaire
+            }
+        }
+        return ResponseEntity.ok(candidatureDtos);
+    }
+
+    @GetMapping("/details/{candidatureId}")
+    public ResponseEntity<CandidatureDto> getCandidatureDetails(@PathVariable Long candidatureId) {
+        Candidature candidature = candidatureService.findById(candidatureId);
+        if (candidature == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Forcer le chargement des relations
+        Hibernate.initialize(candidature.getCandidat());
+        Hibernate.initialize(candidature.getOffre());
+
+        CandidatureDto dto = candidatureConverter.toDto(candidature);
+
+        return ResponseEntity.ok(dto);
+    }
+
+
     private byte[] generatePdfFromCandidature(Candidature candidature) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Document document = new Document();

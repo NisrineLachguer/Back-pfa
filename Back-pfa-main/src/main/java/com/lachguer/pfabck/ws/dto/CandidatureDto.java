@@ -21,6 +21,8 @@ public class CandidatureDto {
     private String motivation;
     private String disponibilite;
     private String offreTitre; // Si vous voulez inclure le titre de l'offre
+    private String localisation;
+    private String nomEntreprise;
 
     // Ajoutez les getters et setters pour ces nouveaux champs
 
@@ -143,4 +145,21 @@ public class CandidatureDto {
     public String getOffreTitre() {
         return offreTitre;
     }
+
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
+
+    public String getNomEntreprise() {
+        return nomEntreprise;
+    }
+
+    public void setNomEntreprise(String nomEntreprise) {
+        this.nomEntreprise = nomEntreprise;
+    }
 }
+

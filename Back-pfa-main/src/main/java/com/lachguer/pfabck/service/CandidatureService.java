@@ -5,6 +5,7 @@ import com.lachguer.pfabck.model.Candidature;
 import com.lachguer.pfabck.model.Offre;
 import com.lachguer.pfabck.repository.CandidatureRepository;
 import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,10 @@ public class CandidatureService {
         return candidatureRepository.findByRecruteurIdWithDetails(recruteurId);
     }
 
+    public List<Candidature> findByCandidatId(Long candidatId) {
+        return candidatureRepository.findByCandidatId(candidatId);
+    }
+
     @Transactional
     public Candidature updateStatus(Long id, String newStatus) {
         Candidature candidature = findById(id);
@@ -69,5 +74,16 @@ public class CandidatureService {
             return candidatureRepository.save(candidature);
         }
         return null;
+    }
+    // Ajouter cette méthode dans CandidatureService.java si elle n'existe pas déjà
+    @Transactional
+    public List<Candidature> findDetailedCandidaturesByCandidat(Long candidatId) {
+        List<Candidature> candidatures = candidatureRepository.findByCandidatId(candidatId);
+        // Force le chargement des relations pour éviter le lazy loading
+        candidatures.forEach(c -> {
+            Hibernate.initialize(c.getOffre());
+            // Assurez-vous que toutes les données du formulaire sont chargées
+        });
+        return candidatures;
     }
 }
