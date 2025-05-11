@@ -65,7 +65,7 @@ public class GeminiService {
                 "En vous basant sur les compétences demandées dans la description du poste et le profil du candidat, " +
                 "évaluez si ce candidat correspond aux exigences du poste. " +
                 "Donnez un pourcentage de correspondance et expliquez brièvement en quoi ce candidat " +
-                "correspond ou ne correspond pas au poste. Limitez votre réponse à 200 mots maximum.";
+                "correspond ou ne correspond pas au poste. Limitez votre réponse à 200 caractères maximum.";
     }
 
     private String extractResponseFromGemini(String jsonResponse) {

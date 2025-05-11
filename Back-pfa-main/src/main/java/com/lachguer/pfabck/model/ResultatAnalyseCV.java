@@ -17,7 +17,10 @@ public class ResultatAnalyseCV {
     private String resultat; // "validé" ou "non validé"
 
     @Column(nullable = false)
-    private String commentaire; // Commentaire de l'analyse (par exemple, "manque d'expérience")
+    private String commentaire;
+
+    @Column
+    private Integer pourcentage;
 
     public Long getId() {
         return id;
@@ -49,5 +52,13 @@ public class ResultatAnalyseCV {
 
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
+    }
+
+    public Integer getPourcentage() {
+        return pourcentage;
+    }
+
+    public void setPourcentage(Integer pourcentage) {
+        this.pourcentage = pourcentage;
     }
 }

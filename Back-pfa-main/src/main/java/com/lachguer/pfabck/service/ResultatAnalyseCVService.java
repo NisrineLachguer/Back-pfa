@@ -32,6 +32,10 @@ public class ResultatAnalyseCVService {
         return null;
     }
 
+    public ResultatAnalyseCV findByCandidatureId(Long candidatureId) {
+        return repository.findByCandidatureId(candidatureId);
+    }
+
     public void delete(Long id) {
         repository.deleteById(id);
     }

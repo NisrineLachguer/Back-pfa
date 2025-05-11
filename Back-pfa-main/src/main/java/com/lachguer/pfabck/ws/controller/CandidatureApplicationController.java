@@ -1,9 +1,6 @@
 package com.lachguer.pfabck.ws.controller;
 
-import com.lachguer.pfabck.model.Candidat;
-import com.lachguer.pfabck.model.Candidature;
-import com.lachguer.pfabck.model.Offre;
-import com.lachguer.pfabck.model.User;
+import com.lachguer.pfabck.model.*;
 import com.lachguer.pfabck.service.*;
 import com.lachguer.pfabck.ws.dto.CandidatureAnalysisDto;
 import com.lachguer.pfabck.ws.dto.CandidatureFormDto;
@@ -39,6 +36,9 @@ public class CandidatureApplicationController {
 
     @Autowired
     private GeminiService geminiService;
+
+    @Autowired
+    private ResultatAnalyseCVService resultatAnalyseCVService;
 
 
     @PostMapping("/apply")
@@ -115,6 +115,14 @@ public class CandidatureApplicationController {
             // 8. Traiter la réponse de Gemini pour extraire le pourcentage et la décision
             CandidatureAnalysisDto analysis = processAnalysisResult(analysisResult);
 
+            // 9. Sauvegarder le résultat de l'analyse
+            ResultatAnalyseCV resultatAnalyseCV = new ResultatAnalyseCV();
+            resultatAnalyseCV.setCandidature(candidature);
+            resultatAnalyseCV.setResultat(analysis.isAccepted() ? "validé" : "non validé");
+            resultatAnalyseCV.setCommentaire(analysisResult);
+            resultatAnalyseCV.setPourcentage(analysis.getPercentageValue());
+            resultatAnalyseCVService.save(resultatAnalyseCV);
+
             // Créer une structure de réponse qui inclut à la fois le message et l'analyse
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Candidature envoyée avec succès");
@@ -133,14 +141,22 @@ public class CandidatureApplicationController {
 
         String percentage = "N/A";
         boolean isAccepted = false;
+        Integer percentValue = 0;
 
         if (percentMatcher.find()) {
-            percentage = percentMatcher.group(1) + "%";
-            int percentValue = Integer.parseInt(percentMatcher.group(1));
+            percentValue = Integer.parseInt(percentMatcher.group(1));
+            percentage = percentValue + "%";
             // On considère qu'un candidat est accepté s'il a plus de 70% de correspondance
             isAccepted = percentValue >= 70;
         }
 
-        return new CandidatureAnalysisDto(analysisResult, percentage, isAccepted);
+//        if (percentMatcher.find()) {
+//            percentage = percentMatcher.group(1) + "%";
+//            int percentValue = Integer.parseInt(percentMatcher.group(1));
+//            // On considère qu'un candidat est accepté s'il a plus de 70% de correspondance
+//            isAccepted = percentValue >= 70;
+//        }
+
+        return new CandidatureAnalysisDto(analysisResult, percentage, isAccepted, percentValue);
     }
 }

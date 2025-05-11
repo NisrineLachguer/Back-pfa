@@ -12,6 +12,7 @@ public class ResultatAnalyseCVDto {
     private String resultat; // "validé" ou "non validé"
 
     private String commentaire;
+    private Integer pourcentage;
 
     public Long getId() {
         return id;
@@ -43,5 +44,11 @@ public class ResultatAnalyseCVDto {
 
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
+    }
+    public Integer getPourcentage() {
+        return pourcentage;
+    }
+    public void setPourcentage(Integer pourcentage) {
+        this.pourcentage = pourcentage;
     }
 }
